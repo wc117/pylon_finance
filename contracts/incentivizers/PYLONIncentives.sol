@@ -634,7 +634,7 @@ contract PYLONIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     uint256 public constant DURATION = 864000;
 
     uint256 public initreward = 6300 * 10**18; // 6,300
-    uint256 public starttime = 1598918400; // 2020-09-01 00:00:00 (UTC UTC +00:00)
+    uint256 public starttime = 1599004800; // 2020-09-02 00:00:00 (UTC UTC +00:00)
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
