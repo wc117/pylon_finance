@@ -7,8 +7,8 @@ const PYLONImplementation = artifacts.require("PYLONDelegate");
 const PYLONProxy = artifacts.require("PYLONDelegator");
 
 // deployed third
-// const PYLONReserves = artifacts.require("PYLONReserves");
-// const PYLONRebaser = artifacts.require("PYLONRebaser");
+const PYLONReserves = artifacts.require("PYLONReserves");
+const PYLONRebaser = artifacts.require("PYLONRebaser");
 
 const Gov = artifacts.require("GovernorAlpha");
 const Timelock = artifacts.require("Timelock");
@@ -43,8 +43,8 @@ module.exports = migration;
 async function deployDistribution(deployer, network, accounts) {
   console.log(network)
   let pylon = await PYLONProxy.deployed();
-  // let yReserves = await PYLONReserves.deployed()
-  // let yRebaser = await PYLONRebaser.deployed()
+  let yReserves = await PYLONReserves.deployed()
+  let yRebaser = await PYLONRebaser.deployed()
   let tl = await Timelock.deployed();
   let gov = await Gov.deployed();
   if (network != "test") {
@@ -124,8 +124,8 @@ async function deployDistribution(deployer, network, accounts) {
 
   await Promise.all([
     pylon._setPendingGov(Timelock.address),
-    // yReserves._setPendingGov(Timelock.address),
-    // yRebaser._setPendingGov(Timelock.address),
+    yReserves._setPendingGov(Timelock.address),
+    yRebaser._setPendingGov(Timelock.address),
   ]);
 
   await Promise.all([
@@ -137,21 +137,21 @@ async function deployDistribution(deployer, network, accounts) {
         0
       ),
 
-      // tl.executeTransaction(
-      //   PYLONReserves.address,
-      //   0,
-      //   "_acceptGov()",
-      //   "0x",
-      //   0
-      // ),
+      tl.executeTransaction(
+        PYLONReserves.address,
+        0,
+        "_acceptGov()",
+        "0x",
+        0
+      ),
 
-      // tl.executeTransaction(
-      //   PYLONRebaser.address,
-      //   0,
-      //   "_acceptGov()",
-      //   "0x",
-      //   0
-      // ),
+      tl.executeTransaction(
+        PYLONRebaser.address,
+        0,
+        "_acceptGov()",
+        "0x",
+        0
+      ),
   ]);
   await tl.setPendingAdmin(Gov.address);
   await gov.__acceptAdmin();

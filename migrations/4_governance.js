@@ -8,8 +8,8 @@ const PYLONProxy = artifacts.require("PYLONDelegator");
 
 // Rs
 // deployed second
-// const PYLONReserves = artifacts.require("PYLONReserves");
-// const PYLONRebaser = artifacts.require("PYLONRebaser");
+const PYLONReserves = artifacts.require("PYLONReserves");
+const PYLONRebaser = artifacts.require("PYLONRebaser");
 
 // Governance
 // deployed third
