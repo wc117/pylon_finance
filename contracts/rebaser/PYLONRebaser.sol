@@ -288,11 +288,12 @@ contract PYLONRebaser {
     function activate_rebasing()
         public
     {
-        require(timeOfTWAPInit > 0, "twap wasnt intitiated, call init_twap()");
-        // cannot enable prior to end of rebaseDelay
-        require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
+        // disable rebase
+        // require(timeOfTWAPInit > 0, "twap wasnt intitiated, call init_twap()");
+        // // cannot enable prior to end of rebaseDelay
+        // require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
 
-        rebasingActive = true;
+        // rebasingActive = true;
     }
 
     /**
@@ -305,54 +306,55 @@ contract PYLONRebaser {
     function rebase()
         public
     {
-        // EOA only
-        require(msg.sender == tx.origin);
-        // ensure rebasing at correct time
-        _inRebaseWindow();
+        // disable rebase
+        // // EOA only
+        // require(msg.sender == tx.origin);
+        // // ensure rebasing at correct time
+        // _inRebaseWindow();
 
-        // This comparison also ensures there is no reentrancy.
-        require(lastRebaseTimestampSec.add(minRebaseTimeIntervalSec) < now);
+        // // This comparison also ensures there is no reentrancy.
+        // require(lastRebaseTimestampSec.add(minRebaseTimeIntervalSec) < now);
 
-        // Snap the rebase time to the start of this window.
-        lastRebaseTimestampSec = now.sub(
-            now.mod(minRebaseTimeIntervalSec)).add(rebaseWindowOffsetSec);
+        // // Snap the rebase time to the start of this window.
+        // lastRebaseTimestampSec = now.sub(
+        //     now.mod(minRebaseTimeIntervalSec)).add(rebaseWindowOffsetSec);
 
-        epoch = epoch.add(1);
+        // epoch = epoch.add(1);
 
-        // get twap from uniswap v2;
-        uint256 exchangeRate = getTWAP();
+        // // get twap from uniswap v2;
+        // uint256 exchangeRate = getTWAP();
 
-        // calculates % change to supply
-        (uint256 offPegPerc, bool positive) = computeOffPegPerc(exchangeRate);
+        // // calculates % change to supply
+        // (uint256 offPegPerc, bool positive) = computeOffPegPerc(exchangeRate);
 
-        uint256 indexDelta = offPegPerc;
+        // uint256 indexDelta = offPegPerc;
 
-        // Apply the Dampening factor.
-        indexDelta = indexDelta.div(rebaseLag);
+        // // Apply the Dampening factor.
+        // indexDelta = indexDelta.div(rebaseLag);
 
-        PYLONTokenInterface pylon = PYLONTokenInterface(pylonAddress);
+        // PYLONTokenInterface pylon = PYLONTokenInterface(pylonAddress);
 
-        if (positive) {
-            require(pylon.pylonsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18) < pylon.maxScalingFactor(), "new scaling factor will be too big");
-        }
+        // if (positive) {
+        //     require(pylon.pylonsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18) < pylon.maxScalingFactor(), "new scaling factor will be too big");
+        // }
 
 
-        uint256 currSupply = pylon.totalSupply();
+        // uint256 currSupply = pylon.totalSupply();
 
-        uint256 mintAmount;
-        // reduce indexDelta to account for minting
-        if (positive) {
-            uint256 mintPerc = indexDelta.mul(rebaseMintPerc).div(10**18);
-            indexDelta = indexDelta.sub(mintPerc);
-            mintAmount = currSupply.mul(mintPerc).div(10**18);
-        }
+        // uint256 mintAmount;
+        // // reduce indexDelta to account for minting
+        // if (positive) {
+        //     uint256 mintPerc = indexDelta.mul(rebaseMintPerc).div(10**18);
+        //     indexDelta = indexDelta.sub(mintPerc);
+        //     mintAmount = currSupply.mul(mintPerc).div(10**18);
+        // }
 
-        // rebase
-        uint256 supplyAfterRebase = pylon.rebase(epoch, indexDelta, positive);
-        assert(pylon.pylonsScalingFactor() <= pylon.maxScalingFactor());
+        // // rebase
+        // uint256 supplyAfterRebase = pylon.rebase(epoch, indexDelta, positive);
+        // assert(pylon.pylonsScalingFactor() <= pylon.maxScalingFactor());
 
-        // perform actions after rebase
-        afterRebase(mintAmount, offPegPerc);
+        // // perform actions after rebase
+        // afterRebase(mintAmount, offPegPerc);
     }
 
 
