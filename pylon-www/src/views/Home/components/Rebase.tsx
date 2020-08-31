@@ -8,11 +8,14 @@ import CardContent from '../../../components/CardContent'
 import Dial from '../../../components/Dial'
 import Label from '../../../components/Label'
 
+import useRebase from '../../../hooks/useRebase'
+
 interface RebaseProps {
   nextRebase?: number
 }
 
 const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
+  const { onRebase } = useRebase()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { hours, minutes, seconds } = countdownProps
@@ -24,26 +27,24 @@ const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
     )
   }
 
-  const dialValue = nextRebase / (1000 * 60 * 60 * 12) * 100
+  const dialValue = (nextRebase - Date.now()) / (1000 * 60 * 60 * 24) * 100
 
   return (
     <StyledRebase>
       <Card>
         <CardContent>
-          <StyledCountdownWrapper>
-            <Dial disabled={!nextRebase} size={232} value={dialValue ? dialValue : 0}>
-              <StyledCountdown>
-                <StyledCountdownText>
-                  {!nextRebase ? '--' : (
-                    <Countdown date={new Date(Date.now() + nextRebase)} renderer={renderer} />
-                  )}
-                </StyledCountdownText>
-                <Label text="Next rebase" />
-              </StyledCountdown>
-            </Dial>
-          </StyledCountdownWrapper>
+          <Dial disabled={!nextRebase} size={232} value={dialValue ? dialValue : 0}>
+            <StyledCountdown>
+              <StyledCountdownText>
+                {!nextRebase ? '--' : (
+                  <Countdown date={new Date(nextRebase)} renderer={renderer} />
+                )}
+              </StyledCountdownText>
+              <Label text="Next rebase" />
+            </StyledCountdown>
+          </Dial>
           <StyledSpacer />
-          <Button disabled text="Rebase" />
+          <Button disabled={!nextRebase || nextRebase > 0} onClick={onRebase}  text="Rebase" borderImage/>
         </CardContent>
       </Card>
     </StyledRebase>
@@ -65,10 +66,6 @@ const StyledCountdownText = styled.span`
   color: ${props => props.theme.color.grey[600]};
   font-size: 36px;
   font-weight: 700;
-`
-const StyledCountdownWrapper = styled.div`
-  display: flex;
-  justify-content: center;
 `
 
 const StyledSpacer = styled.div`

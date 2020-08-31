@@ -1,40 +1,67 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Countdown from 'react-countdown';
 
-import farmer from '../../assets/img/farmer.png'
 
-import Button from '../../components/Button'
-import Container from '../../components/Container'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
 
-import Balances from './components/Balances'
+import usePylon from '../../hooks/usePylon'
+
+import Rebase from './components/Rebase'
+import Stats from './components/Stats'
+
+import { OverviewData } from './types'
+import { getStats } from './utils'
 
 const Home: React.FC = () => {
+
+  const pylon = usePylon()
+  const [{
+    circSupply,
+    curPrice,
+    nextRebase,
+    targetPrice,
+    totalSupply,
+  }, setStats] = useState<OverviewData>({})
+
+  const fetchStats = useCallback(async () => {
+    const statsData = await getStats(pylon)
+    setStats(statsData)
+  }, [pylon, setStats])
+
+  useEffect(() => {
+    if (pylon) {
+      fetchStats()
+    }
+  }, [pylon])
+
+  const countdownBlock = () => {
+    const date = Date.parse("2020-08-20T00:00:00+0000");
+    if (Date.now() >= date) return "";
+    return (
+      <CountdownView>
+        <Countdown date={date} />
+      </CountdownView>
+    )
+  }
+
   return (
     <Page>
-      <PageHeader
-        icon="🗣"
-        subtitle="Vote on the future of the YAM protocol."
-        title="YAMV2 governance is live."
-      />
-      <Container>
-        <Button href="https://snapshot.page/#/yam" text="Go to governance dashboard" />
-        <Spacer size="lg" />
-        <Balances />
-      </Container>
-      <Spacer size="lg" />
-        <div style={{
-          margin: '0 auto'
-        }}>
-          <Button
-            size="sm"
-            text="View V1 Farms"
-            to="/farms"
-            variant="secondary"
-           />
-        </div>
+      {/* {countdownBlock()} */}
+
+      <PageHeader icon="" subtitle="PYLON" title="A NEW ERA OF DEFI" />
+
+      <StyledOverview>
+        {/* <Rebase nextRebase={nextRebase} /> */}
+        <StyledSpacer />
+        {/* <Stats
+          circSupply={circSupply}
+          curPrice={curPrice}
+          targetPrice={targetPrice}
+          totalSupply={totalSupply}
+        /> */}
+      </StyledOverview>
     </Page>
   )
 }
@@ -45,19 +72,18 @@ const StyledOverview = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
-    align-items: stretch;
   }
+`
+
+const CountdownView =  styled.div`
+  font-size: 30px;
+  font-weight: bold;
+  color: #555;
 `
 
 const StyledSpacer = styled.div`
   height: ${props => props.theme.spacing[4]}px;
   width: ${props => props.theme.spacing[4]}px;
-`
-
-const StyledLink = styled.a`
-  font-weight: 700l
-  text-decoration: none;
-  color: ${props => props.theme.color.primary.main};
 `
 
 export default Home

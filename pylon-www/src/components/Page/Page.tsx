@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Footer from '../Footer'
-import TopBar from '../TopBar'
 
 const Page: React.FC = ({ children }) => (
   <StyledPage>
@@ -13,7 +12,14 @@ const Page: React.FC = ({ children }) => (
   </StyledPage>
 )
 
-const StyledPage = styled.div``
+const StyledPage = styled.div`
+  margin-top: ${props => props.theme.topBarSize}px;
+  background: url(${require("../../assets/img/background.png")}) fixed;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+`
 
 const StyledMain = styled.div`
   align-items: center;

@@ -4,9 +4,15 @@ import styled from 'styled-components'
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink href="https://discord.gg/nKKhBbk">Discord</StyledLink>
-      <StyledLink href="https://github.com/yam-finance/yam-protocol">Github</StyledLink>
-      <StyledLink href="https://twitter.com/YamFinance">Twitter</StyledLink>
+      <StyledLink href="https://discord.gg/m5zSFsA">
+        <StyledLinkIcon src={require("../../../assets/img/discord.png")} />
+      </StyledLink>
+      <StyledLink href="https://t.me/pylonfinance">
+        <StyledLinkIcon src={require("../../../assets/img/twitter.png")}/>
+      </StyledLink>
+      <StyledLink href="https://twitter.com/Pylonfinance">
+        <StyledLinkIcon src={require("../../../assets/img/telegram.png")}/>
+      </StyledLink>
     </StyledNav>
   )
 }
@@ -24,6 +30,10 @@ const StyledLink = styled.a`
   &:hover {
     color: ${props => props.theme.color.grey[500]};
   }
+`
+const StyledLinkIcon = styled.img`
+  width: 30px;
+  height: 30px;
 `
 
 export default Nav

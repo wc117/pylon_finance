@@ -1,27 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
-import { useWallet } from 'use-wallet'
-import numeral from 'numeral'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 import Loader from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
 
 import useFarms from '../../../hooks/useFarms'
-import useYam from '../../../hooks/useYam'
 
 import { Farm } from '../../../contexts/Farms'
 
-import { bnToDec } from '../../../utils'
-import { getEarned, getPoolStartTime } from '../../../yamUtils'
+import { getPoolStartTime } from '../../../pylonUtils'
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
-  const { account } = useWallet()
+
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
@@ -58,11 +53,6 @@ interface FarmCardProps {
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [startTime, setStartTime] = useState(0)
-  const [harvestable, setHarvestable] = useState(0)
-
-  const { contract } = farm
-  const { account } = useWallet()
-  const yam = useYam()
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -80,25 +70,16 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }
 
   useEffect(() => {
-    if (farm && farm.id === 'ycrv_yam_uni_lp') {
+    if (farm && farm.id === 'uni_lp') {
       getStartTime()
     }
   }, [farm, getStartTime])
-
-  useEffect(() => {
-    async function fetchEarned () {
-      const earned = await getEarned(yam, contract, account)
-      setHarvestable(bnToDec(earned))
-    }
-    if (yam && account) {
-      fetchEarned()
-    }
-  }, [yam, contract, account, setHarvestable])
   
   const poolActive = startTime * 1000 - Date.now() <= 0
+  
   return (
     <StyledCardWrapper>
-      {farm.id === 'ycrv_yam_uni_lp' && (
+      {farm.id === 'uni_lp' && (
         <StyledCardAccent />
       )}
       <Card>
@@ -110,16 +91,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>
-            <Spacer />
-            <StyledHarvestable>
-              {harvestable ? `${numeral(harvestable).format('0.00a')} YAMs ready to harvest.` : undefined}
-            </StyledHarvestable>
             <Button
-              disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
+              // disabled={!poolActive}
+              // text={poolActive ? 'Select' : undefined}
+              text="Select"
               to={`/farms/${farm.id}`}
+              borderImage
             >
-              {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
+              {/* {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />} */}
             </Button>
           </StyledContent>
         </CardContent>
@@ -193,6 +172,7 @@ const StyledContent = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  color: white;
 `
 
 const StyledSpacer = styled.div`
@@ -201,19 +181,13 @@ const StyledSpacer = styled.div`
 `
 
 const StyledDetails = styled.div`
+  margin-bottom: ${props => props.theme.spacing[6]}px;
   margin-top: ${props => props.theme.spacing[2]}px;
   text-align: center;
 `
 
 const StyledDetail = styled.div`
   color: ${props => props.theme.color.grey[500]};
-`
-
-const StyledHarvestable = styled.div`
-  color: ${props => props.theme.color.secondary.main};
-  font-size: 16px;
-  height: 48px;
-  text-align: center;
 `
 
 export default FarmCards

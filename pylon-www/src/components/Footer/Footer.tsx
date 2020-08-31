@@ -23,6 +23,8 @@ const StyledFooterInner = styled.div`
   height: ${props => props.theme.topBarSize}px;
   max-width: ${props => props.theme.siteWidth}px;
   width: 100%;
+  background-image: url(https://static.starcraft2.com/dist/images/bg-footer-social-1600.a7861f1….jpg);
+  height: 200px;
 `
 
 export default Footer

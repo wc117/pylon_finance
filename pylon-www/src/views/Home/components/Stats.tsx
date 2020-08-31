@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
+
+import numeral from 'numeral'
 
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
@@ -9,15 +11,24 @@ import { getDisplayBalance } from '../../../utils/formatBalance'
 import BigNumber from 'bignumber.js'
 
 interface StatsProps {
+  circSupply?: string,
   curPrice?: number,
-  scalingFactor?: number,
   targetPrice?: number,
+  totalSupply?: string
 }
 const Stats: React.FC<StatsProps> = ({
+  circSupply,
   curPrice,
-  scalingFactor,
   targetPrice,
+  totalSupply,
 }) => {
+
+  const formattedTotalSupply = useMemo(() => {
+    if (totalSupply) {
+      const supplyStr = getDisplayBalance(new BigNumber(totalSupply))
+      return numeral(supplyStr).format('0.0a') 
+    } else return '--'
+  }, [totalSupply])
 
   return (
     <StyledStats>
@@ -47,9 +58,9 @@ const Stats: React.FC<StatsProps> = ({
         <CardContent>
           <StyledStat>
             <StyledValue>
-              {scalingFactor ? scalingFactor + 'x' : '--'}
+              {formattedTotalSupply}
             </StyledValue>
-            <Label text="Scaling Factor" />
+            <Label text="Total Supply" />
           </StyledStat>
         </CardContent>
       </Card>
@@ -58,7 +69,7 @@ const Stats: React.FC<StatsProps> = ({
 }
 
 const StyledStats = styled.div`
-  flex: 1;
+  width: 325px;
 `
 
 const StyledStat = styled.div`

@@ -9,10 +9,8 @@ export interface Farm {
   earnTokenAddress: string,
   icon: React.ReactNode,
   id: string,
-  sort: number
 }
 
 export interface FarmsContext {
-  farms: Farm[],
-  unharvested: number
+  farms: Farm[]
 }

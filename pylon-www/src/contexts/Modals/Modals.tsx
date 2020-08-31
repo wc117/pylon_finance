@@ -4,7 +4,7 @@ import styled from 'styled-components'
 interface ModalsContext {
   content?: React.ReactNode,
   isOpen?: boolean,
-  onPresent: (content: React.ReactNode, key?: string) => void,
+  onPresent: (content: React.ReactNode) => void,
   onDismiss: () => void
 }
 
@@ -16,18 +16,16 @@ export const Context = createContext<ModalsContext>({
 const Modals: React.FC = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState<React.ReactNode>()
-  const [modalKey, setModalKey] = useState<string>()
 
-  const handlePresent = useCallback((modalContent: React.ReactNode, key?: string) => {
-    setModalKey(key)
+  const handlePresent = useCallback((modalContent: React.ReactNode) => {
     setContent(modalContent)
     setIsOpen(true)
-  }, [setContent, setIsOpen, setModalKey])
+  }, [setContent, setIsOpen])
 
   const handleDismiss = useCallback(() => {
     setContent(undefined)
     setIsOpen(false)
-  }, [setContent, setIsOpen, modalKey])
+  }, [setContent, setIsOpen])
 
   return (
     <Context.Provider value={{
@@ -52,7 +50,6 @@ const Modals: React.FC = ({ children }) => {
 const StyledModalWrapper = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
