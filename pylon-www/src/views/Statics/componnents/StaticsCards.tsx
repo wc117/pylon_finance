@@ -87,7 +87,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
   const getData = useCallback(async () => {
     const selfAddress = pylon.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
-    let ah:any = {'weth': 'eth_pool', 'uni_lp': 'ycrvUNIV_pool', 'wbtc': 'btc_pool', 'link': 'yalink_pool'};
+    let ah:any = {'weth': 'eth_pool', 'uni_lp': 'ycrvUNIV_pool', 'wbtc': 'btc_pool', 'yalink': 'yalink_pool'};
     let key = ah[token] || `${token}_pool`
 
     const STAKING_POOL = pylon.contracts[key];

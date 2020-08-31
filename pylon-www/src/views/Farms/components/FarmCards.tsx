@@ -88,7 +88,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <CardIcon>{farm.icon}</CardIcon>
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
-              <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+              <StyledDetail>Deposit {farm.depositToken==="link"?"YALINK":farm.depositToken.toUpperCase()}</StyledDetail>
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>
             <Button
