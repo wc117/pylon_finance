@@ -39,14 +39,14 @@ import { Farm } from './types'
 
 
 const NAME_FOR_POOL: { [key: string]: string } = {
-  eth_pool: 'Weth Homestead',
-  comp_pool: 'Compounding Hills',
+  eth_pool: 'Nexus',
+  comp_pool: 'Gateway',
   // link_pool: 'Marine Gardens',
-  lend_pool: 'Aave Agriculture',
-  snx_pool: 'Spartan Grounds',
-  btc_pool: 'Florida Lands',
-  yalink_pool: 'Eldorado Resort',
-  ycrvUNIV_pool: 'Eternal Lands',
+  lend_pool: 'Robotics Facility',
+  snx_pool: 'Cybernetics Core',
+  btc_pool: 'Shield Battery',
+  yalink_pool: 'Stargate',
+  ycrvUNIV_pool: 'VOID SHRINE',
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
