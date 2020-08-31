@@ -96,7 +96,7 @@ const Farm: React.FC = () => {
     <>
       <PageHeader
         icon={icon}
-        subtitle={`Deposit ${depositTokenName} and earn ${earnTokenName}`}
+        subtitle={`Deposit ${depositTokenName==="LINK"?"YALINK":depositTokenName} and earn ${earnTokenName}`}
         title={name}
       />
       {PylonNotify(depositToken)}

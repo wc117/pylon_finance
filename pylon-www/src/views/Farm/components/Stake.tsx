@@ -84,14 +84,14 @@ const Stake: React.FC<StakeProps> = ({
           <StyledCardHeader>
             <CardIcon>🌱</CardIcon>
             <Value value={getDisplayBalance(stakedBalance)} />
-            <Label text={`${tokenName} Staked`} />
+            <Label text={`${tokenName==="LINK"?"YALINK":tokenName} Staked`} />
           </StyledCardHeader>
           <StyledCardActions>
             {!allowance.toNumber() ? (
               <Button
                 disabled={requestedApproval}
                 onClick={handleApprove}
-                text={`Approve ${tokenName}`}
+                text={`Approve ${tokenName==="LINK"?"YALINK":tokenName}`}
                 borderImage
               />
             ) : (
