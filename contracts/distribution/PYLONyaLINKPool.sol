@@ -598,7 +598,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public link = IERC20(0x4bE1Afc674A2F4056f6c5189f938f3083dcbad14);
+    IERC20 public link = IERC20(0x29E240CFD7946BA20895a7a02eDb25C210f9f324);
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
 
@@ -624,7 +624,7 @@ contract LPTokenWrapper {
 }
 
 contract PYLONyaLINKPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public pylon = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
+    IERC20 public pylon = IERC20(0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2);
     uint256 public constant DURATION = 864000; // 10 days
 
     uint256 public starttime = 1598918400; // 2020-09-01 00:00:00 (UTC UTC +00:00)

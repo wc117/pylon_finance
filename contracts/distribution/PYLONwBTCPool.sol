@@ -598,7 +598,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public wbtc = IERC20(0xC11b1268C1A384e55C48c2391d8d480264A3A7F4);
+    IERC20 public wbtc = IERC20(0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -625,7 +625,7 @@ contract LPTokenWrapper {
 }
 
 contract PYLONwBTCPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public pylon = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
+    IERC20 public pylon = IERC20(0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2);
     uint256 public constant DURATION = 864000; // 10 days
 
     uint256 public starttime = 1598918400; // 2020-09-01 00:00:00 (UTC UTC +00:00)

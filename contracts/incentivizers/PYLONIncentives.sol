@@ -630,7 +630,7 @@ interface PYLON {
 }
 
 contract PYLONIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public pylon = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
+    IERC20 public pylon = IERC20(0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2);
     uint256 public constant DURATION = 864000;
 
     uint256 public initreward = 6300 * 10**18; // 6,300
