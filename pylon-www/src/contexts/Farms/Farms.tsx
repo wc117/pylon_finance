@@ -44,8 +44,8 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   // link_pool: 'Marine Gardens',
   lend_pool: 'Aave Agriculture',
   snx_pool: 'Spartan Grounds',
-  btc_pool: 'Test2',
-  yalink_pool: 'Test1',
+  btc_pool: 'Florida Lands',
+  yalink_pool: 'Eldorado Resort',
   ycrvUNIV_pool: 'Eternal Lands',
 }
 
