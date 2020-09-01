@@ -208,7 +208,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       <Card>
         <CardContent>
           <StyledContent>
-            <StyledTitle>{farm.icon}{farm.name}</StyledTitle>
+            <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
               {data ? DataDetail(data) : "Loading..."}
             </StyledDetails>
