@@ -7,10 +7,10 @@ const Nav: React.FC = () => {
       <StyledLink href="https://discord.gg/m5zSFsA">
         <StyledLinkIcon src={require("../../../assets/img/discord.png")} />
       </StyledLink>
-      <StyledLink href="https://t.me/pylonfinance">
+      <StyledLink href="https://twitter.com/Pylonfinance">
         <StyledLinkIcon src={require("../../../assets/img/twitter.png")}/>
       </StyledLink>
-      <StyledLink href="https://twitter.com/Pylonfinance">
+      <StyledLink href="https://t.me/pylonfinance">
         <StyledLinkIcon src={require("../../../assets/img/telegram.png")}/>
       </StyledLink>
     </StyledNav>

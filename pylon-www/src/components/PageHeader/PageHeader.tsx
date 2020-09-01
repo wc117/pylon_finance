@@ -8,9 +8,10 @@ interface PageHeaderProps {
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
+  console.log(icon);
   return (
     <StyledPageHeader>
-      <StyledIcon>{icon}</StyledIcon>
+      <StyledIcon>{icon?<img src={require('../../assets/img/'+icon)} height="108px" width="128px" />:''}</StyledIcon>
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>
@@ -33,6 +34,7 @@ const StyledIcon = styled.div`
   line-height: 96px;
   text-align: center;
   width: 128px;
+  border-radius: 40px;
 `
 
 const StyledTitle = styled.h1`

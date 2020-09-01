@@ -19,7 +19,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
 }) => {
   return (
     <StyledTokenInput>
-      <StyledMaxText>{max.toLocaleString()} {symbol} Available</StyledMaxText>
+      <StyledMaxText>{symbol==="WBTC" ? max.toLocaleString() : max.toLocaleString()} {symbol} Available</StyledMaxText>
       <Input
         endAdornment={(
           <StyledTokenAdornmentWrapper>

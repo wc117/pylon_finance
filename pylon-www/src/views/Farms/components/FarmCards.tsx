@@ -68,7 +68,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       <span style={{ width: '100%' }}>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
   }
-
+  console.log("a", farm.icon)
   useEffect(() => {
     if (farm && farm.id === 'uni_lp') {
       getStartTime()
@@ -85,7 +85,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       <Card>
         <CardContent>
           <StyledContent>
-            <CardIcon>{farm.icon}</CardIcon>
+            <CardIcon><img src={require('../../../assets/img/'+farm.icon)} height="80px" width="80px" /></CardIcon>
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
               <StyledDetail>Deposit {farm.depositToken==="link"?"YALINK":farm.depositToken.toUpperCase()}</StyledDetail>

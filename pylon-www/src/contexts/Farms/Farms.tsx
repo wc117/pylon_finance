@@ -43,21 +43,21 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   comp_pool: 'Gateway',
   // link_pool: 'Marine Gardens',
   lend_pool: 'Robotics Facility',
-  snx_pool: 'Cybernetics Core',
+  snx_pool: 'Fleet Beacon',
   btc_pool: 'Shield Battery',
-  yalink_pool: 'Stargate',
-  ycrvUNIV_pool: 'VOID SHRINE',
+  yalink_pool: 'Photon Cannon',
+  ycrvUNIV_pool: 'Twilight Council',
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
-  eth_pool: '🌎',
-  comp_pool: '💸',
+  eth_pool: 'nexus.jpg',
+  comp_pool: 'gateway.jpg',
   // link_pool: '🔗',
-  lend_pool: '🏕️',
-  snx_pool: '⚔️',
-  btc_pool: '🐮',
-  yalink_pool: '🔗',
-  ycrvUNIV_pool: '🌈',
+  lend_pool: 'robotics_facility.jpg',
+  snx_pool: 'fleet_beacon.jpg',
+  btc_pool: 'shield_battery.jpg',
+  yalink_pool: 'photon_cannon.jpg',
+  ycrvUNIV_pool: 'twilight_council.jpg',
 }
 
 // const SORT_FOR_POOL: { [key: string]: number } = {
