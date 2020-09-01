@@ -32,7 +32,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
         )}
         onChange={onChange}
         placeholder="0"
-        value={value}
+        value={symbol==="WBTC" ? (typeof value==="number"?value*10000000000:Number(value)*10000000000).toLocaleString() : value.toLocaleString()}
       />
     </StyledTokenInput>
   )
