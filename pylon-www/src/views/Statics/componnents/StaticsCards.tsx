@@ -84,7 +84,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
   const [data, setData] = useState(null)
 
   price = 5000;
-  
+
   const getData = useCallback(async () => {
     const selfAddress = pylon.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
@@ -181,11 +181,11 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     1 {stakingTokenTicker}   = {stakingTokenPrice}$<br/>
     <br/>
     ========== STAKING =========<br/>
-    There are total   : {totalSupply} {stakingTokenTicker}.<br/>
-    There are total   : {totalStakedAmount} {stakingTokenTicker} staked in {rewardTokenTicker}'s {stakingTokenTicker} staking pool.<br/>
-                      = <span className='total'>{toDollar(totalStakedAmount * stakingTokenPrice)}</span><br/>
-    You are staking   : {amount} {stakingTokenTicker} ({toFixed(amount * 100 / totalStakedAmount, 3)}% of the pool)<br/>
-                      = {toDollar(amount * stakingTokenPrice)}<br/>
+    There are total   : {stakingTokenTicker==="wbtc"?totalSupply*10000000000:totalSupply} {stakingTokenTicker}.<br/>
+    There are total   : {stakingTokenTicker==="wbtc"?totalStakedAmount*10000000000:totalStakedAmount} {stakingTokenTicker} staked in {rewardTokenTicker}'s {stakingTokenTicker} staking pool.<br/>
+                      = <span className='total'>{stakingTokenTicker==="wbtc"?toDollar(totalStakedAmount*10000000000 * stakingTokenPrice):toDollar(totalStakedAmount * stakingTokenPrice)}</span><br/>
+    You are staking   : {stakingTokenTicker==="wbtc"?amount*10000000000:amount} {stakingTokenTicker} ({toFixed(amount * 100 / totalStakedAmount, 3)}% of the pool)<br/>
+                      = {toDollar((stakingTokenTicker==="wbtc"?amount*10000000000:amount) * stakingTokenPrice)}<br/>
                       <br/>
     ======== {rewardTokenTicker} REWARDS ========<br/>
     Claimable Rewards : {toFixed(earned, 4)} {rewardTokenTicker} = ${toFixed(earned * price, 2)}<br/>
