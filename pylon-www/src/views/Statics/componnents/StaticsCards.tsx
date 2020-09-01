@@ -140,7 +140,8 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
         stakingTokenPrice = (yCRVPrice * totalyCRVInUniswapPair + price * totalPYLONInUniswapPair) / totalSupplyOfStakingToken;
       }
     }
-    let weeklyEstimate = rewardPerToken * amount;
+    console.log(token);
+    let weeklyEstimate = token==="wbtc" ? (rewardPerToken * amount * 10000000000) : (rewardPerToken * amount);
     let weeklyROI = (rewardPerToken * price) * 100 / (stakingTokenPrice);
 
 
@@ -193,10 +194,10 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     Hourly estimate   : {toFixed(weeklyEstimate / (24 * 7), 4)} {rewardTokenTicker} = {toDollar((weeklyEstimate / (24 * 7)) * price)} <br/>
     Daily estimate    : {toFixed(weeklyEstimate / 7, 2)} {rewardTokenTicker} = {toDollar((weeklyEstimate / 7) * price)} <br/>
     Weekly estimate   : {toFixed(weeklyEstimate, 2)} {rewardTokenTicker} = {toDollar(weeklyEstimate * price)} <br/>
-    Hourly ROI in USD : {toFixed((weeklyROI / 7) / 24, 4)}%<br/>
-    Daily ROI in USD  : {toFixed(weeklyROI / 7, 4)}%<br/>
-    Weekly ROI in USD : {toFixed(weeklyROI, 4)}%<br/>
-    APY (unstable)    : {toFixed(weeklyROI * 52, 4)}%<br/>
+    Hourly ROI in USD : {toFixed(((stakingTokenTicker==="wbtc"?weeklyROI/10000000000:weeklyROI) / 7) / 24, 4)}%<br/>
+    Daily ROI in USD  : {toFixed((stakingTokenTicker==="wbtc"?weeklyROI/10000000000:weeklyROI) / 7, 4)}%<br/>
+    Weekly ROI in USD : {toFixed((stakingTokenTicker==="wbtc"?weeklyROI/10000000000:weeklyROI), 4)}%<br/>
+    APY (unstable)    : {toFixed((stakingTokenTicker==="wbtc"?weeklyROI/10000000000:weeklyROI) * 52, 4)}%<br/>
         </StyledPre>
       </div>
     )
