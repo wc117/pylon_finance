@@ -121,7 +121,8 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       comp: ["compound-governance-token"],
       snx: ["havven"],
       lend: ["ethlend"],
-      uni_lp: ["curve-fi-ydai-yusdc-yusdt-ytusd"]
+      uni_lp: ["curve-fi-ydai-yusdc-yusdt-ytusd"],
+      wbtc: ["wrapped-bitcoin"],
     }
     let stakingTokenPrice = 1;
     if (Object.keys(hash).includes(token))  {
