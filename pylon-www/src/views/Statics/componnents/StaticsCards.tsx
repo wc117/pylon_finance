@@ -83,7 +83,8 @@ let loaded = false;
 const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
   const [data, setData] = useState(null)
 
-
+  price = 5000;
+  
   const getData = useCallback(async () => {
     const selfAddress = pylon.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
