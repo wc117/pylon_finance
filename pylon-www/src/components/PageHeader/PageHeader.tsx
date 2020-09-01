@@ -11,7 +11,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   console.log(icon);
   return (
     <StyledPageHeader>
-      <StyledIcon>{typeof icon==="string"?<img src={require('../../assets/img/'+icon)} height="108px" width="128px" />:(typeof icon==="object"?'':'')}</StyledIcon>
+      <StyledIcon>{icon?<img src={require('../../assets/img/'+icon)} height="108px" width="128px" />:''}</StyledIcon>
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>

@@ -47,9 +47,9 @@ const App: React.FC = () => {
           {/* <Route path="/vote">
             <Vote />
           </Route> */}
-          <Route path="/stats">
+          {/* <Route path="/stats">
             <Statics />
-          </Route>
+          </Route> */}
         </Switch>
       </Router>
     </Providers>
