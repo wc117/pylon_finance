@@ -83,7 +83,7 @@ const Stake: React.FC<StakeProps> = ({
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>🌱</CardIcon>
-            <Value value={getDisplayBalance(stakedBalance)} />
+            <Value value={tokenName==="WBTC"?getDisplayBalance(stakedBalance.times(10000000000)):getDisplayBalance(stakedBalance)} />
             <Label text={`${tokenName==="LINK"?"YALINK":tokenName} Staked`} />
           </StyledCardHeader>
           <StyledCardActions>

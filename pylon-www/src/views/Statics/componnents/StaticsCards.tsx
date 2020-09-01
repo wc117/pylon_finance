@@ -87,12 +87,12 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
   const getData = useCallback(async () => {
     const selfAddress = pylon.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
-    let ah:any = {'weth': 'eth_pool', 'uni_lp': 'ycrvUNIV_pool', 'wbtc': 'btc_pool', 'yalink': 'yalink_pool'};
+    let ah:any = {'weth': 'eth_pool', 'uni_lp': 'ycrvUNIV_pool', 'wbtc': 'btc_pool', 'link': 'yalink_pool'};
     let key = ah[token] || `${token}_pool`
-
+    
     const STAKING_POOL = pylon.contracts[key];
-    console.log(STAKING_POOL);
-    const Token = pylon.contracts[token];
+    console.log(token);
+    const Token = token==="link"?pylon.contracts["yalink"]:(token==="uni_lp"?pylon.contracts["ycrvUNIV"]:(token==="wbtc"?pylon.contracts["btc"]:pylon.contracts[token]));
     const PYLON_TOKEN = pylon.contracts.pylon;
     const rewardTokenTicker = "PYLON"
     const stakingTokenTicker = token
@@ -100,7 +100,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     const rewardPoolAddr = STAKING_POOL._address
     const amount = await STAKING_POOL.methods.balanceOf(selfAddress).call() / 1e18;
     const earned = pylonScale * await STAKING_POOL.methods.earned(selfAddress).call() / 1e18;
-    
+    console.log(Token);
     const totalSupply = await Token.methods.totalSupply().call() / 1e18;
     
     const totalStakedAmount = await Token.methods.balanceOf(rewardPoolAddr).call() / 1e18;
@@ -167,8 +167,11 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
 
   const DataDetail = (data: any) => {
 
-    const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, price, weeklyROI} = data
+    // const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, price, weeklyROI} = data
+    const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, weeklyROI} = data
     // debugger
+    const price = 5000;
+
     return (
       <div>
         <StyledPre>
@@ -242,6 +245,7 @@ const StyledPre = styled.pre`
     white-space: pre-wrap;
     word-wrap: break-word;
   }
+  color: white;
 `
 
 const StyledCards = styled.div`
@@ -254,6 +258,7 @@ const StyledCards = styled.div`
 const StyledLoadingWrapper = styled.div`
   align-items: center;
   justify-content: center;
+  color: white;
 `
 
 const StyledRow = styled.div`
