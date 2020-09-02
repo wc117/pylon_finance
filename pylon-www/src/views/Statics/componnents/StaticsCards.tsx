@@ -97,6 +97,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     console.log(token);
     const Token = token==="link"?pylon.contracts["yalink"]:(token==="uni_lp"?pylon.contracts["ycrvUNIV"]:(token==="wbtc"?pylon.contracts["btc"]:pylon.contracts[token]));
     const PYLON_TOKEN = pylon.contracts.pylon;
+    console.log("p", PYLON_TOKEN);
     const rewardTokenTicker = "PYLON"
     const stakingTokenTicker = token
     const pylonScale = await PYLON_TOKEN.methods.pylonsScalingFactor().call() / 1e18;
@@ -110,6 +111,10 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
 
 
     const weekly_reward = (Math.round((await STAKING_POOL.methods.rewardRate().call() * 604800)) * pylonScale) / 1e18;
+    
+    console.log("st", STAKING_POOL);
+    console.log("st", weekly_reward);
+    console.log("st", totalStakedAmount);
     const rewardPerToken = weekly_reward / totalStakedAmount;
 
 
@@ -154,10 +159,10 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
         stakingTokenPrice = (yCRVPrice * totalyCRVInUniswapPair + price * totalPYLONInUniswapPair) / totalSupplyOfStakingToken;
       }
     }
-    console.log(token);
+    
     let weeklyEstimate = token==="wbtc" ? (rewardPerToken * amount * 10000000000) : (rewardPerToken * amount);
     let weeklyROI = (rewardPerToken * price) * 100 / (stakingTokenPrice);
-
+    console.log("reward per token", rewardPerToken, amount, weeklyEstimate);
 
     setData({
       token,
@@ -188,6 +193,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     //const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, weeklyROI} = data
     // debugger
     //const price = 5000;
+    console.log(earned);
 
     return (
       <div>
