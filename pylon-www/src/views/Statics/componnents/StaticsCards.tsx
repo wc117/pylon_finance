@@ -83,14 +83,16 @@ let loaded = false;
 const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
   const [data, setData] = useState(null)
 
-  price = 5000;
-
+  // price = 5000;
+  
   const getData = useCallback(async () => {
     const selfAddress = pylon.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
     let ah:any = {'weth': 'eth_pool', 'uni_lp': 'ycrvUNIV_pool', 'wbtc': 'btc_pool', 'link': 'yalink_pool'};
     let key = ah[token] || `${token}_pool`
     
+    
+
     const STAKING_POOL = pylon.contracts[key];
     console.log(token);
     const Token = token==="link"?pylon.contracts["yalink"]:(token==="uni_lp"?pylon.contracts["ycrvUNIV"]:(token==="wbtc"?pylon.contracts["btc"]:pylon.contracts[token]));
@@ -123,16 +125,28 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       lend: ["ethlend"],
       uni_lp: ["curve-fi-ydai-yusdc-yusdt-ytusd"],
       wbtc: ["wrapped-bitcoin"],
+      pylon: ["pylon-finance"]
     }
     let stakingTokenPrice = 1;
+
     if (Object.keys(hash).includes(token))  {
+      
       let d = await lookUpPrices(hash[token]);
       let data:any = Object.values(d[0] || d)[0];
       data = data.usd || data;
+
       stakingTokenPrice = parseFloat(data.toString());
       // if(token == 'yfi') debugger;
+
+      let da = await lookUpPrices(hash["pylon"]);
+      let dataA:any = Object.values(da[0] || da)[0];
+      dataA = data.usd || dataA;
+      console.log(dataA);
+      price = parseFloat(dataA.usd.toString());
+      console.log(price);
+      
       if(token === 'uni_lp'){
-        const UNI_TOKEN_ADDR = "0x27c850523Db2084E8Dc4Bcf8312C8A72d77459ec";
+        const UNI_TOKEN_ADDR = "0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE";
         const totalyCRVInUniswapPair = await pylon.contracts['ycrv'].methods.balanceOf(UNI_TOKEN_ADDR).call() / 1e18;
         const totalPYLONInUniswapPair = await PYLON_TOKEN.methods.balanceOf(UNI_TOKEN_ADDR).call() / 1e18;
         let yCRVPrice = stakingTokenPrice;
@@ -170,10 +184,10 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
 
   const DataDetail = (data: any) => {
 
-    // const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, price, weeklyROI} = data
-    const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, weeklyROI} = data
+    const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, price, weeklyROI} = data
+    //const {totalSupply, totalStakedAmount, weekly_reward, amount, earned, weeklyEstimate, rewardTokenTicker, stakingTokenTicker, stakingTokenPrice, weeklyROI} = data
     // debugger
-    const price = 5000;
+    //const price = 5000;
 
     return (
       <div>
