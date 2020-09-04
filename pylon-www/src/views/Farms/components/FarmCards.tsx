@@ -79,7 +79,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   
   return (
     <StyledCardWrapper>
-      {farm.id === 'uni_lp' && (
+      {/* {farm.id === 'uni_lp' && (
+        <StyledCardAccent />
+      )} */}
+      {(
         <StyledCardAccent />
       )}
       <Card>

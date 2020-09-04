@@ -225,7 +225,10 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
 
   return (
     <StyledCardWrapper>
-      {farm.id === 'uni_lp' && (
+      {/* {farm.id === 'uni_lp' && (
+        <StyledCardAccent />
+      )} */}
+      {(
         <StyledCardAccent />
       )}
       <Card>

@@ -91,44 +91,45 @@ const Farm: React.FC = () => {
     )
   }
 
-
-  return (
-    <>
-      <PageHeader
-        icon={icon}
-        subtitle={`Deposit ${depositTokenName==="LINK"?"YALINK":depositTokenName} and earn ${earnTokenName}`}
-        title={name}
-      />
-      {PylonNotify(depositToken)}
-      <StyledFarm>
-        {
-          lpPoolTips(depositToken)
-        }
-        <StyledCardsWrapper>
-          <StyledCardWrapper>
-            <Harvest poolContract={contract} />
-          </StyledCardWrapper>
-          <Spacer />
-          <StyledCardWrapper>
-            <Stake
-              poolContract={contract}
-              tokenContract={tokenContract}
-              tokenName={depositToken.toUpperCase()}
+  
+    return (
+      <>
+        <PageHeader
+          icon={icon}
+          subtitle={`Deposit ${depositTokenName==="LINK"?"YALINK":depositTokenName} and earn ${earnTokenName}`}
+          title={name}
+        />
+        {PylonNotify(depositToken)}
+        <StyledFarm>
+          {
+            lpPoolTips(depositToken)
+          }
+          <StyledCardsWrapper>
+            <StyledCardWrapper>
+              <Harvest poolContract={contract} />
+            </StyledCardWrapper>
+            <Spacer />
+            <StyledCardWrapper>
+              <Stake
+                poolContract={contract}
+                tokenContract={tokenContract}
+                tokenName={depositToken.toUpperCase()}
+              />
+            </StyledCardWrapper>
+          </StyledCardsWrapper>
+          <Spacer size="lg" />
+          <div>
+            <Button
+              onClick={onRedeem}
+              text="Harvest & Withdraw"
+              borderImage
             />
-          </StyledCardWrapper>
-        </StyledCardsWrapper>
-        <Spacer size="lg" />
-        <div>
-          <Button
-            onClick={onRedeem}
-            text="Harvest & Withdraw"
-            borderImage
-          />
-        </div>
-        <Spacer size="lg" />
-      </StyledFarm>
-    </>
-  )
+          </div>
+          <Spacer size="lg" />
+        </StyledFarm>
+      </>
+    )
+  
 }
 
 const StyledFarm = styled.div`

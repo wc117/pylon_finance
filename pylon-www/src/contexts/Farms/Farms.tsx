@@ -101,7 +101,8 @@ const Farms: React.FC = ({ children }) => {
       if (tokenKey === 'eth') {
         tokenKey = 'weth'
       } else if (tokenKey === 'ycrvUNIV') {
-        tokenKey = 'uni_lp'
+        //tokenKey = 'uni_lp'
+        tokenKey = ''
       } else if (tokenKey === 'btc') {
         tokenKey = 'wbtc'
       } else if (tokenKey === 'yalink') {
