@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from "react";
 
-import { Contract } from "web3-eth-contract"
+import { Contract } from "web3-eth-contract";
 
-import { pylon as pylonAddress } from '../../constants/tokenAddresses'
-import usePylon from '../../hooks/usePylon'
-import { getPoolContracts } from '../../pylonUtils'
+import { pylon as pylonAddress } from "../../constants/tokenAddresses";
+import usePylon from "../../hooks/usePylon";
+import { getPoolContracts } from "../../pylonUtils";
 
-import Context from './context'
-import { Farm } from './types'
+import Context from "./context";
+import { Farm } from "./types";
 
 // const NAME_FOR_POOL: { [key: string]: string } = {
 //   eth_pool: 'Weth Homestead',
@@ -37,28 +37,27 @@ import { Farm } from './types'
 //   ycrvUNIV_pool: '🌈',
 // }
 
-
 const NAME_FOR_POOL: { [key: string]: string } = {
-  eth_pool: 'Nexus',
-  comp_pool: 'Gateway',
+  eth_pool: "Nexus",
+  comp_pool: "Gateway",
   // link_pool: 'Marine Gardens',
-  lend_pool: 'Robotics Facility',
-  snx_pool: 'Fleet Beacon',
-  btc_pool: 'Shield Battery',
-  yalink_pool: 'Photon Cannon',
-  ycrvUNIV_pool: 'Twilight Council',
-}
+  lend_pool: "Robotics Facility",
+  snx_pool: "Fleet Beacon",
+  btc_pool: "Shield Battery",
+  yalink_pool: "Photon Cannon",
+  ycrvUNIV_pool: "Twilight Council",
+};
 
 const ICON_FOR_POOL: { [key: string]: string } = {
-  eth_pool: 'nexus.jpg',
-  comp_pool: 'gateway.jpg',
+  eth_pool: "nexus.png",
+  comp_pool: "gateway.png",
   // link_pool: '🔗',
-  lend_pool: 'robotics_facility.jpg',
-  snx_pool: 'fleet_beacon.jpg',
-  btc_pool: 'shield_battery.jpg',
-  yalink_pool: 'photon_cannon.jpg',
-  ycrvUNIV_pool: 'twilight_council.jpg',
-}
+  lend_pool: "robotics_facility.png",
+  snx_pool: "fleet_beacon.png",
+  btc_pool: "shield_battery.png",
+  yalink_pool: "photon_cannon.png",
+  ycrvUNIV_pool: "twilight_council.png",
+};
 
 // const SORT_FOR_POOL: { [key: string]: number } = {
 //   yfi_pool: 0,
@@ -82,72 +81,67 @@ const ICON_FOR_POOL: { [key: string]: string } = {
 // }
 
 const Farms: React.FC = ({ children }) => {
-
-  const [farms, setFarms] = useState<Farm[]>([])
-  const pylon = usePylon()
+  const [farms, setFarms] = useState<Farm[]>([]);
+  const pylon = usePylon();
 
   const fetchPools = useCallback(async () => {
-    const pools: { [key: string]: Contract} = await getPoolContracts(pylon)
+    const pools: { [key: string]: Contract } = await getPoolContracts(pylon);
 
-    const farmsArr: Farm[] = []
-    const poolKeys = Object.keys(pools)
+    const farmsArr: Farm[] = [];
+    const poolKeys = Object.keys(pools);
 
     console.log(poolKeys);
 
     for (let i = 0; i < poolKeys.length; i++) {
-      const poolKey = poolKeys[i]
-      const pool = pools[poolKey]
-      let tokenKey = poolKey.replace('_pool', '')
-      if (tokenKey === 'eth') {
-        tokenKey = 'weth'
-      } else if (tokenKey === 'ycrvUNIV') {
+      const poolKey = poolKeys[i];
+      const pool = pools[poolKey];
+      let tokenKey = poolKey.replace("_pool", "");
+      if (tokenKey === "eth") {
+        tokenKey = "weth";
+      } else if (tokenKey === "ycrvUNIV") {
         //tokenKey = 'uni_lp'
-        tokenKey = ''
-      } else if (tokenKey === 'btc') {
-        tokenKey = 'wbtc'
-      } else if (tokenKey === 'yalink') {
-        tokenKey = 'link'
+        tokenKey = "";
+      } else if (tokenKey === "btc") {
+        tokenKey = "wbtc";
+      } else if (tokenKey === "yalink") {
+        tokenKey = "link";
       }
 
-      const method = pool.methods[tokenKey]
+      const method = pool.methods[tokenKey];
       if (method) {
         try {
-          let tokenAddress = ''
-          if (tokenKey === 'uni_lp') {
+          let tokenAddress = "";
+          if (tokenKey === "uni_lp") {
             // checking
-            tokenAddress = '0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE'
+            tokenAddress = "0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE";
           } else {
-            tokenAddress = await method().call()
+            tokenAddress = await method().call();
           }
           farmsArr.push({
             contract: pool,
             name: NAME_FOR_POOL[poolKey],
             depositToken: tokenKey,
             depositTokenAddress: tokenAddress,
-            earnToken: 'pylon',
+            earnToken: "pylon",
             earnTokenAddress: pylonAddress,
             icon: ICON_FOR_POOL[poolKey],
             id: tokenKey,
-          })
+          });
         } catch (e) {
-          console.log(e)
+          console.log(e);
         }
       }
     }
-    setFarms(farmsArr)
-  }, [pylon, setFarms])
+    setFarms(farmsArr);
+  }, [pylon, setFarms]);
 
   useEffect(() => {
     if (pylon) {
-      fetchPools()
+      fetchPools();
     }
-  }, [pylon, fetchPools])
+  }, [pylon, fetchPools]);
 
-  return (
-    <Context.Provider value={{ farms }}>
-      {children}
-    </Context.Provider>
-  )
-}
+  return <Context.Provider value={{ farms }}>{children}</Context.Provider>;
+};
 
-export default Farms
+export default Farms;

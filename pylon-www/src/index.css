@@ -1,5 +1,6 @@
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 51, 102, 0.9));
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 51, 102, 0.9)); */
+  background-color: #ECF0F3;
   margin: 0;
   font-family: 'Nunito', sans-serif;
   font-size: 16px;
