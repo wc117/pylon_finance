@@ -369,8 +369,9 @@ const StyledPre = styled.pre`
 
 const StyledCards = styled.div`
   width: 900px;
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 960px) {
+    width: 90%;
+    margin: auto;
   }
 `;
 
@@ -392,7 +393,7 @@ const StyledCardWrapper = styled.div`
   width: 100%;
   position: relative;
   display: inline-block;
-  margin: 15px;
+  margin: 15px 0;
 `;
 
 const StyledTitle = styled.h4`
@@ -412,6 +413,10 @@ const TitleView = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: 700;
+  @media (max-width: 960px) {
+    width: 90%;
+    margin: auto;
+  }
 `;
 const StyledSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;

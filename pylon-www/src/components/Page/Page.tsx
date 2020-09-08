@@ -17,6 +17,10 @@ const StyledPage = styled.div`
   -moz-background-size: 100%;
   -o-background-size: 100%;
   background-size: 100%;
+
+  @media (max-width: 640px) {
+    background: none;
+  }
 `;
 
 const StyledMain = styled.div`

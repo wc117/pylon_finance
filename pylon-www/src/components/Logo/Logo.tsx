@@ -26,6 +26,10 @@ const StyledText = styled.span`
   @media (max-width: 768px) {
     font-size: 14px;
   }
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 export default Logo;

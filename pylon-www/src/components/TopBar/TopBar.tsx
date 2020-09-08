@@ -48,7 +48,8 @@ const StyledTopBar = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 20px;
   background: #e3e8ed;
 `;

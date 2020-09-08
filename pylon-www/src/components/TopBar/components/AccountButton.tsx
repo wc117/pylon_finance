@@ -37,7 +37,22 @@ const StyledAccountButton = styled.div`
   width: 156px;
   margin-right: 20px;
   button {
-    height: 100%;
+    // height: 100%;
+    padding: 20px;
+  }
+  @media (max-width: 640px) {
+    width: 80px;
+
+    button {
+      color: transparent;
+    }
+
+    button:after {
+      content: "Wallet";
+      border: none;
+      color: white;
+      padding-top: 10px;
+    }
   }
 `;
 

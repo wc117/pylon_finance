@@ -53,6 +53,11 @@ const StyledLink = styled(NavLink)`
     background: #ecf0f3;
     box-shadow: -.25rem -.25rem 1rem #fff,.25rem .25rem 1rem #d3d4db;
   }
+
+  @media (max-width: 640px) {
+    height: unset;
+    padding: 8px;
+  }
 `;
 
 export default Nav;
