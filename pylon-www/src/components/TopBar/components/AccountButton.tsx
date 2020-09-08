@@ -1,47 +1,59 @@
-import React, { useMemo } from 'react'
-import styled from 'styled-components'
+import React, { useMemo } from "react";
+import styled from "styled-components";
 
-import { useWallet } from 'use-wallet'
+import { useWallet } from "use-wallet";
 
-import useModal from '../../../hooks/useModal'
-import { formatAddress } from '../../../utils'
+import useModal from "../../../hooks/useModal";
+import { formatAddress } from "../../../utils";
 
-import Button from '../../Button'
+import Button from "../../Button";
 
-import AccountModal from './AccountModal'
+import AccountModal from "./AccountModal";
 
 interface AccountButtonProps {}
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
-  const [onPresentAccountModal] = useModal(<AccountModal />)
-  
-  const { account, connect } = useWallet()
+  const [onPresentAccountModal] = useModal(<AccountModal />);
+
+  const { account, connect } = useWallet();
 
   return (
     <StyledAccountButton>
       {!account ? (
         <Button
-          onClick={() => connect('injected')}
+          onClick={() => connect("injected")}
           size="sm"
           text="CONNECT TO A WALLET"
         />
       ) : (
-        <Button
-          onClick={onPresentAccountModal}
-          size="sm"
-          text="My Wallet"
-        />
+        <Button onClick={onPresentAccountModal} size="sm" text="My Wallet" />
       )}
     </StyledAccountButton>
-  )
-}
+  );
+};
 
 const StyledAccountButton = styled.div`
   height: 100%;
   width: 156px;
+  margin-right: 20px;
   button {
-    height: 100%;
+    // height: 100%;
+    padding: 20px;
   }
-`
+  @media (max-width: 640px) {
+    width: 80px;
 
-export default AccountButton
+    button {
+      color: transparent;
+    }
+
+    button:after {
+      content: "Wallet";
+      border: none;
+      color: white;
+      padding-top: 10px;
+    }
+  }
+`;
+
+export default AccountButton;
