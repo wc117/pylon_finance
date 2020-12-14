@@ -40,5 +40,5 @@ async function deployRs(deployer, network) {
   let pylon = await PYLONProxy.deployed();
   await pylon._setRebaser(PYLONRebaser.address);
   let reserves = await PYLONReserves.deployed();
-  await reserves._setRebaser(PYLONRebaser.address)
+  await reserves._setRebaser(PYLONRebaser.address);
 }
